@@ -10,3 +10,24 @@ a {
 .hidden {
   display: none;
 }
+
+.card {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  margin: 10px 10px;
+}
+
+#game {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.symbol{
+  margin: 0;
+  position: relative;
+  display: block;
+  text-align: center;
+  top: 40%;
+}
