@@ -33,7 +33,7 @@
     }
     function createCards(sym){
       for (var i = 0; i < sym.length; i++){
-        var card = createElement('div', ['card'], null ,[createElement('p', ['symbol','hidden'] ,sym[i])]);
+        var card = createElement('div', ['card'], null ,[createElement('p', ['hidden'] ,sym[i])]);
         card.addEventListener('click', cardClick);
         if (checkGrid(sym, i)){
           document.getElementById('game').appendChild(createElement('br'));
@@ -77,8 +77,46 @@
     var cards = createCards(symbols);
 
     function cardClick(evt){
-      console.log('card clicked', evt);
-      console.log(evt.target.children[0].childNodes[0].nodeValue);
+      //account for clicking paragraph
+      var node;
+      var dnode;
+      if (evt.path[0].nodeName === 'DIV'){
+        pnode = evt.path[0].children[0];
+        dnode = evt.path[0];
+      }
+      else {
+        pnode = evt.path[0];
+      }
+      //check if evt is final or already flipped or already 2 cards flipped
+      if (!pnode.classList.contains('final') && !pnode.classList.contains('symbol') && (document.querySelectorAll('.symbol').length < 2)){
+        pnode.classList.toggle('symbol');
+        pnode.classList.toggle('hidden');
+        dnode.classList.toggle('flipped-card');
+        //get all flipped cards
+        var flipped = document.querySelectorAll('.symbol');
+        if (flipped.length === 2){
+          //increment number of flips...
+          //get DOM element, and increment it
+
+          if (flipped[0].innerText === flipped[1].innerText){
+            flipped[0].classList.toggle('symbol');
+            flipped[0].classList.toggle('final');
+            flipped[1].classList.toggle('symbol');
+            flipped[1].classList.toggle('final');
+          }
+          else { //set timout to flip them back
+            window.setTimeout(flipBack, 500, flipped[0], flipped[1]);
+          }
+        }
+      }
+      function flipBack(card1, card2){
+        card1.classList.toggle('symbol');
+        card1.classList.toggle('hidden');
+        card1.parentNode.classList.toggle('flipped-card');
+        card2.classList.toggle('symbol');
+        card2.classList.toggle('hidden');
+        card2.parentNode.classList.toggle('flipped-card');
+      }
     }
   }
 })();

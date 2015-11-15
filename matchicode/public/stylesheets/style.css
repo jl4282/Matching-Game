@@ -8,7 +8,11 @@ a {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+}
+
+#game .flipped-card{
+  background-color: yellow;
 }
 
 .card {
@@ -24,7 +28,15 @@ a {
   margin-right: auto;
 }
 
-.game .symbol{
+.card .symbol{
+  margin: 0;
+  position: relative;
+  display: block;
+  text-align: center;
+  top: 40%;
+}
+
+.final {
   margin: 0;
   position: relative;
   display: block;
