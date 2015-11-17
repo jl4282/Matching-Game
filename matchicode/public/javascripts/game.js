@@ -1,6 +1,9 @@
 (function(){
   document.getElementById('startButton').addEventListener('click', startGame);
   function startGame() {
+
+
+
     var num = document.getElementById('numSymbols').value;
     if (num <= 0 || num >8){
       num = 8;

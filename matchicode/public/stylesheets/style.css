@@ -25,7 +25,7 @@ h1{
   display: inline-block;
   width: 100px;
   height: 100px;
-  background-color: blue;
+  background-color: rgb(112, 65, 225);
   margin: 10px 10px;
   border-radius: 5px;
   box-shadow: 5px 5px 10px #888888;
@@ -33,9 +33,10 @@ h1{
   transition: box-shadow .15s, background-color .5s;
 }
 
-.card:hover{
+.card:hover:not(.flipped-card) {
   cursor: pointer;
   box-shadow: 3px 3px 10px #888888;
+  background-color: rgb(132, 90, 234);
   -webkit-transition: box-shadow .15s;
   transition: box-shadow .15s;
 }
