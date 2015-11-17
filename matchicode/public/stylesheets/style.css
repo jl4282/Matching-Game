@@ -1,10 +1,14 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1.3em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1{
+  text-align: center;
 }
 
 .hidden {
@@ -13,6 +17,8 @@ a {
 
 #game .flipped-card{
   background-color: yellow;
+  -webkit-transition: background-color .1s;
+  transition: background-color .1s;
 }
 
 .card {
@@ -21,25 +27,35 @@ a {
   height: 100px;
   background-color: blue;
   margin: 10px 10px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px #888888;
+  -webkit-transition: box-shadow .15s, background-color .5s;
+  transition: box-shadow .15s, background-color .5s;
+}
+
+.card:hover{
+  cursor: pointer;
+  box-shadow: 3px 3px 10px #888888;
+  -webkit-transition: box-shadow .15s;
+  transition: box-shadow .15s;
 }
 
 #game {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
-.card .symbol{
-  margin: 0;
+.card .symbol, .final{
   position: relative;
   display: block;
   text-align: center;
-  top: 40%;
+  top: 18%;
 }
 
-.final {
-  margin: 0;
-  position: relative;
-  display: block;
-  text-align: center;
-  top: 40%;
+.endGame {
+  display: inline-block;
+  padding: 10px;
+  background-color: dodgerblue;
+  border-radius: 5px;
 }

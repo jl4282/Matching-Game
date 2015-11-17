@@ -32,6 +32,11 @@
       return finalSym;
     }
     function createCards(sym){
+      //add score
+      document.getElementById('game').appendChild(
+        createElement('div', ['score-container'], null, [
+          createElement('p', null, 'Score: ',[createElement('span', ['score'], '0')])
+      ]));
       for (var i = 0; i < sym.length; i++){
         var card = createElement('div', ['card'], null ,[createElement('p', ['hidden'] ,sym[i])]);
         card.addEventListener('click', cardClick);
@@ -40,6 +45,8 @@
         }
         document.getElementById('game').appendChild(card);
       }
+
+
 
       function checkGrid(sym, i){
         if (sym.length > 9 && ((i === 4)||(i === 8)||(i === 12))){
@@ -55,30 +62,11 @@
         }
         return false;
       }
-
-      function createElement(type, classes, text, children){
-        var card = document.createElement(type);
-        if (classes){
-          for (var i = 0; i < classes.length; i++){
-            card.classList.toggle(classes[i]);
-          }
-        }
-        if (text){
-          card.appendChild(document.createTextNode(text));
-        }
-        if (children){
-          for (var i = 0; i < children.length; i++){
-            card.appendChild(children[i]);
-          }
-        }
-        return card;
-      }
     }
     var cards = createCards(symbols);
 
     function cardClick(evt){
-      //account for clicking paragraph
-      var node;
+      var pnode;
       var dnode;
       if (evt.path[0].nodeName === 'DIV'){
         pnode = evt.path[0].children[0];
@@ -96,13 +84,17 @@
         var flipped = document.querySelectorAll('.symbol');
         if (flipped.length === 2){
           //increment number of flips...
-          //get DOM element, and increment it
-
+          document.querySelector('.score').innerText++;
+          //show cards
           if (flipped[0].innerText === flipped[1].innerText){
             flipped[0].classList.toggle('symbol');
             flipped[0].classList.toggle('final');
             flipped[1].classList.toggle('symbol');
             flipped[1].classList.toggle('final');
+            //check if all classes have final - 1 because start form is hidden too
+            if (document.querySelectorAll('.hidden').length === 1){
+              endGame();
+            }
           }
           else { //set timout to flip them back
             window.setTimeout(flipBack, 500, flipped[0], flipped[1]);
@@ -117,6 +109,30 @@
         card2.classList.toggle('hidden');
         card2.parentNode.classList.toggle('flipped-card');
       }
+      function endGame(){
+        var cards = document.querySelectorAll('.card');
+        for (var i = cards.length - 1; i >= 0; i--){
+          cards[i].parentNode.removeChild(cards[i]);
+        }
+        document.getElementById('game').appendChild(createElement('p', ['endGame'], 'Your done. Thanks for playing!'));
+      }
     }
+  }
+  function createElement(type, classes, text, children){
+    var card = document.createElement(type);
+    if (classes){
+      for (var i = 0; i < classes.length; i++){
+        card.classList.toggle(classes[i]);
+      }
+    }
+    if (text){
+      card.appendChild(document.createTextNode(text));
+    }
+    if (children){
+      for (var i = 0; i < children.length; i++){
+        card.appendChild(children[i]);
+      }
+    }
+    return card;
   }
 })();
